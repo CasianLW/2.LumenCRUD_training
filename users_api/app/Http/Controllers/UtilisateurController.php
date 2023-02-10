@@ -25,7 +25,7 @@ class UtilisateurController extends Controller
             'photo'=>'required',
             'first_name'=>'required',
             'last_name'=>'required',
-            'username'=>'required',
+            'email'=>'required',
             'password'=>'required',
         ]);
         $utilisateur = new Utilisateur();
@@ -46,7 +46,7 @@ class UtilisateurController extends Controller
         // 3.text data
         $utilisateur->first_name = $request->input('first_name');
         $utilisateur->last_name = $request->input('last_name');
-        $utilisateur->username = $request->input('username');
+        $utilisateur->email = $request->input('email');
         $utilisateur->password = $request->input('password');
 
         // 4.save and send api response
@@ -75,7 +75,7 @@ class UtilisateurController extends Controller
             'photo'=>'required',
             'first_name'=>'required',
             'last_name'=>'required',
-            'username'=>'required',
+            'email'=>'required',
             'password'=>'required',
         ]);
         $utilisateur = Utilisateur::find($id);
@@ -95,7 +95,7 @@ class UtilisateurController extends Controller
                 }
                 $utilisateur->first_name = $request->input('first_name');
                 $utilisateur->last_name = $request->input('last_name');
-                $utilisateur->username = $request->input('username');
+                $utilisateur->email = $request->input('email');
                 $utilisateur->password = $request->input('password');
         
                 $utilisateur->save();
