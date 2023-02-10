@@ -43,6 +43,9 @@ class UtilisateurController extends Controller
     public function destroy($id)
     {
         //Delete user by ID
+        $utiisateur = Utilisateur::find($id);
+        $utiisateur->delete();
+        return response()->json(`Utilisateur #$id supprimé avec succes !`);
 
     }
 }
