@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Utilisateur;
 
 class UtilisateurController extends Controller
 {
@@ -10,6 +11,8 @@ class UtilisateurController extends Controller
     public function index()
     {
         // Get all data from db
+        $utiisateurs = Utilisateur::all();
+        return response()->json($utiisateurs);
     }
 
 
