@@ -8,6 +8,6 @@ class Utilisateur extends Model
 {
     //
     protected $fillable=[
-        'photo','first_name', 'last_name','username','email','password'
+        'photo','first_name', 'last_name','email','password'
     ];
 }
