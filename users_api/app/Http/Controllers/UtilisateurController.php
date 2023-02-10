@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+
 
 class UtilisateurController extends Controller
 {
@@ -81,8 +83,9 @@ class UtilisateurController extends Controller
         ]);
         $utilisateur = Utilisateur::find($id);
 
-
+if($utilisateur){
                 if($request->hasFile('photo')){
+                    File::delete(base_path('public').'/'.'images/'.$utilisateur->photo);
                     $file = $request->file('photo');
                     $allowedfileExtension = ['pdf','png','jpeg'];
                     $extension = $file->getClientOriginalExtension();
@@ -101,15 +104,22 @@ class UtilisateurController extends Controller
         
                 $utilisateur->save();
         
-                return response()->json($utilisateur);
+                return response()->json($utilisateur);}
+                else{
+        return response()->json("Utilisateur selectinné introuvable !");}
+
     }
 
     public function destroy($id)
     {
-        //Delete user by ID
         $utilisateur = Utilisateur::find($id);
-        $utilisateur->delete();
-        return response()->json(`Utilisateur #$id supprimé avec succes !`);
 
-    }
+        if($utilisateur){//Delete user by ID
+        File::delete(base_path('public').'/'.'images/'.$utilisateur->photo);
+        $utilisateur->delete();
+        // $file->delete($utilisateur->photo);
+        return response()->json("Utilisateur #$id supprimé avec succes !");}
+    else{
+        return response()->json("Utilisateur selectinné introuvable !");}}
+    
 }
