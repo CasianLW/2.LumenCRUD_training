@@ -49,6 +49,7 @@ class UtilisateurController extends Controller
         $utilisateur->username = $request->input('username');
         $utilisateur->password = $request->input('password');
 
+        // 4.save and send api response
         $utilisateur->save();
 
         return response()->json($utilisateur);
@@ -70,6 +71,36 @@ class UtilisateurController extends Controller
     public function update(Request $request, $id)
     {
         //Update user by ID
+        $this->validate($request,[
+            'photo'=>'required',
+            'first_name'=>'required',
+            'last_name'=>'required',
+            'username'=>'required',
+            'password'=>'required',
+        ]);
+        $utilisateur = Utilisateur::find($id);
+
+
+                if($request->hasFile('photo')){
+                    $file = $request->file('photo');
+                    $allowedfileExtension = ['pdf','png','jpeg'];
+                    $extension = $file->getClientOriginalExtension();
+                    $check = in_array($extension, $allowedfileExtension);
+        
+                    if($check){
+                        $name = time().$file->getClientOriginalName();
+                        $file->move('images',$name);
+                        $utilisateur->photo = $name;
+                    }
+                }
+                $utilisateur->first_name = $request->input('first_name');
+                $utilisateur->last_name = $request->input('last_name');
+                $utilisateur->username = $request->input('username');
+                $utilisateur->password = $request->input('password');
+        
+                $utilisateur->save();
+        
+                return response()->json($utilisateur);
     }
 
     public function destroy($id)
