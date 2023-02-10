@@ -25,6 +25,9 @@ class UtilisateurController extends Controller
     public function show($id)
     {
         //give 1 user from users list
+        $utiisateur = Utilisateur::find($id);
+        return response()->json($utiisateur);
+
     }
 
     // public function edit($id)
