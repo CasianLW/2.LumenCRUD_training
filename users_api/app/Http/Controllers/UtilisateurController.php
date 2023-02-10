@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Utilisateur;
+use Illuminate\Support\Facades\Hash;
 
 class UtilisateurController extends Controller
 {
@@ -47,7 +48,7 @@ class UtilisateurController extends Controller
         $utilisateur->first_name = $request->input('first_name');
         $utilisateur->last_name = $request->input('last_name');
         $utilisateur->email = $request->input('email');
-        $utilisateur->password = $request->input('password');
+        $utilisateur->password = Hash::make($request->input('password'));
 
         // 4.save and send api response
         $utilisateur->save();
@@ -96,7 +97,7 @@ class UtilisateurController extends Controller
                 $utilisateur->first_name = $request->input('first_name');
                 $utilisateur->last_name = $request->input('last_name');
                 $utilisateur->email = $request->input('email');
-                $utilisateur->password = $request->input('password');
+                $utilisateur->password = Hash::make($request->input('password'));
         
                 $utilisateur->save();
         
